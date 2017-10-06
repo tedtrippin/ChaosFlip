@@ -1,0 +1,42 @@
+{
+ "level": 1,
+ "tiles": [
+   {
+    "id": 1,
+    "x": 305,
+    "y": 460,
+    "width": 25,
+    "height": 25,
+    "tiles": ["red.png", "blue.png"],
+    "start": 0,
+    "dependents": [2]
+   },{
+    "id": 2,
+    "x": 335,
+    "y": 460,
+    "width": 25,
+    "height": 25,
+    "tiles": ["red.png", "blue.png"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 3,
+    "x": 305,
+    "y": 500,
+    "width": 25,
+    "height": 25,
+    "tiles": ["red.png", "blue.png"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 4,
+    "x": 335,
+    "y": 500,
+    "width": 25,
+    "height": 25,
+    "tiles": ["red.png", "blue.png"],
+    "start": 0,
+    "dependents": []
+   }
+ ]
+}

@@ -1,3 +1,5 @@
-# Emuz
+# Fockers
 
-My first game :)
+Remember an old Amiga game called BIP?
+
+I'm trying to recreate it as a multiplayer version.

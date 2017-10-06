@@ -1,4 +1,4 @@
-package com.trippin.fockers.display;
+package com.trippin.chaosFlip.display;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -9,22 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.trippin.fockers.engine.Engine;
-
 public class ControlsPanel
     extends JPanel
     implements ActionListener {
 
     private final JFrame parent;
-    private final Engine engine;
     private final JButton stopButton;
 
     private static final long serialVersionUID = 1L;
 
-    ControlsPanel(JFrame parent, Engine engine) {
+    ControlsPanel(JFrame parent) {
 
         this.parent = parent;
-        this.engine = engine;
 
         setMinimumSize(new Dimension(100, 20));
 
@@ -42,8 +38,6 @@ public class ControlsPanel
     }
 
     private void stop() {
-
-        engine.stop();
 
         Container parentContainer = parent.getContentPane();
         parentContainer.removeAll();
