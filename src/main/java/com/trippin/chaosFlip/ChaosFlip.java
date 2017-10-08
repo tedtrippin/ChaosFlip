@@ -14,9 +14,17 @@ public class ChaosFlip extends JFrame {
         chaosFlip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chaosFlip.setSize(640, 960);
         chaosFlip.setVisible(true);
+        chaosFlip.start();
     }
 
+    private final MainMenu mainMenu;
+
     public ChaosFlip() {
-        add(new MainMenu(this));
+        mainMenu = new MainMenu(this);
+        add(mainMenu);
+    }
+
+    public void start() {
+        mainMenu.start();
     }
 }

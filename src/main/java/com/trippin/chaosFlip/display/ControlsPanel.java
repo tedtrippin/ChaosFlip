@@ -39,9 +39,11 @@ public class ControlsPanel
 
     private void stop() {
 
+        MainMenu mainMenu = new MainMenu(parent);
         Container parentContainer = parent.getContentPane();
         parentContainer.removeAll();
-        parentContainer.add(new MainMenu(parent));
+        parentContainer.add(mainMenu);
         parentContainer.validate();
+        mainMenu.start();
     }
 }

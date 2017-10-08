@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.trippin.chaosFlip.UserDataLoader;
+import com.trippin.chaosFlip.starfield.CenterStarFactory;
+import com.trippin.chaosFlip.starfield.StarField;
 import com.trippin.chasoFlip.model.Level;
 import com.trippin.chasoFlip.model.Tile;
 import com.trippin.chasoFlip.model.UserData;
@@ -45,8 +47,6 @@ public class ArenaPanel
         this.addMouseListener(this);
         setBackground(Color.BLACK);
 
-        starField = new StarField(this);
-
 //        URL backgroundUrl = ArenaMask.class.getClassLoader().getResource("background.jpg");
 //        try {
 //            background = ImageIO.read(backgroundUrl);
@@ -65,7 +65,7 @@ public class ArenaPanel
 
         Graphics2D g2D = (Graphics2D) g;
 
-        starField.draw(g2D, getWidth(), getHeight());
+        starField.draw(g2D);
 
 //        g.drawImage(background, 0, 0, null);
 
@@ -85,6 +85,7 @@ public class ArenaPanel
         if (initialised)
             return;
 
+        starField = new StarField(this, new CenterStarFactory(this));
         starField.start();
 
         ratioX = getWidth() / DEFAULT_WIDTH;
