@@ -2,52 +2,41 @@ package com.trippin.chaosFlip.display;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.trippin.chaosFlip.LevelLoader;
 import com.trippin.chaosFlip.UserDataLoader;
 import com.trippin.chaosFlip.Exception.CantLoadLevelException;
 import com.trippin.chaosFlip.starfield.RightStarFactory;
-import com.trippin.chaosFlip.starfield.StarField;
 
 public class MainMenu
-    extends JPanel
+    extends ChaosPanel
     implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
     private final JFrame parent;
+
+    // Menu components
     private final JButton startButton;
     private final JButton exitButton;
+    private final JLabel selectLevelLabel;
     private final JComboBox<Integer> levelSelector;
-    private StarField starField;
 
     public MainMenu(JFrame parent) {
+
+        super(new RightStarFactory());
 
         this.parent = parent;
         setBackground(Color.BLACK);
         setLayout(null);
-        
-        int width = (int)parent.getSize().getWidth();
-        int left = width / 3;
-        int right = left * 2;
-        int buttonWidth = right - left;
-        int buttonHeight = 35;
-        int labelHeight = 25;
-        
-        int height = (int)parent.getSize().getHeight();
-        int verticalStep = height / 5;
-        height = verticalStep;
 
         // Get level (current level + 1 or max level)
         int level = 0;
@@ -58,19 +47,17 @@ public class MainMenu
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
         // Add start button
-        startButton = new JButton("Start");
+        startButton = new MenuButton("START", 32);
         startButton.addActionListener(this);
-        startButton.setLocation(left, height);
-        startButton.setSize(buttonWidth, buttonHeight);
         add(startButton);
 
         // Add level select label
-        JLabel selectLevelLabel = new JLabel("Choose level");
-        height += buttonHeight + 10;
-        selectLevelLabel.setLocation(left, height);
-        selectLevelLabel.setSize(buttonWidth, labelHeight);
+        selectLevelLabel = new JLabel("Choose level");
+        selectLevelLabel.setForeground(Color.WHITE);
+        selectLevelLabel.setSize(200, 25);
+        selectLevelLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(selectLevelLabel);
 
         // Add level select
@@ -81,23 +68,27 @@ public class MainMenu
         } while (i < level);
         levelSelector = new JComboBox<>(levelList);
         levelSelector.setSelectedIndex(levelList.length - 1); // Select the highest level
-        height += selectLevelLabel.getHeight() + 5;
-        levelSelector.setLocation(left, height);
-        levelSelector.setSize(buttonWidth, buttonHeight);
+        levelSelector.setSize(MenuButton.WIDTH, 25);
         add(levelSelector);
-        
+
         // Add exitbutton
-        exitButton = new JButton("exit");
+        exitButton = new MenuButton("EXIT", 39);
         exitButton.addActionListener(this);
-        height += verticalStep;
-        exitButton.setLocation(left, height);
-        exitButton.setSize(buttonWidth, buttonHeight);
         add(exitButton);
     }
 
-    public void start() {
-        starField = new StarField(this, new RightStarFactory(this));
-        starField.start();
+    @Override
+    protected void init() {
+
+        int width = (int) parent.getSize().getWidth();
+        int middle = width / 2;
+
+        int buttonX = middle - (MenuButton.WIDTH / 2);
+        startButton.setLocation(buttonX, 200);
+        levelSelector.setLocation(buttonX, 310);
+        exitButton.setLocation(buttonX, 500);
+
+        selectLevelLabel.setLocation(middle - (selectLevelLabel.getWidth() / 2), 280);
     }
 
     @Override
@@ -109,19 +100,7 @@ public class MainMenu
         	System.exit(0);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        starField.draw((Graphics2D) g);
-    }
-
-    @Override
-    public void removeNotify() {
-        super.removeNotify();
-        starField.stop();
-    }
-
-    public void startGame() {
+    private void startGame() {
 
         // Create the game panel
         GamePanel gamePanel;

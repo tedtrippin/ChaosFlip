@@ -1,22 +1,20 @@
 package com.trippin.chaosFlip.starfield;
 
+/**
+ * Abstract star factory for creating stars between 1-3 in size
+ * and a random speed.
+ *
+ * @author robert.haycock
+ *
+ */
 abstract class AbstractStarFactory implements StarFactory {
 
-    private final int startAngle;
-    private final int angleRange;
-    private final int xRange;
-    private final int xOffset;
-    private final int yRange;
-    private final int yOffset;
-
-    AbstractStarFactory (int startAngle, int angleRange, int xRange, int xOffset, int yRange, int yOffset) {
-        this.startAngle = startAngle;
-        this.angleRange = angleRange;
-        this.xRange = xRange;
-        this.xOffset = xOffset;
-        this.yRange = yRange;
-        this.yOffset = yOffset;
-    }
+    protected int startAngle; // Initial angle of travel
+    protected int angleRange; // Direction of travel range
+    protected int xRange; // Range of starting X coordinate
+    protected int yRange; // Range of starting Y coordinate
+    protected int xOffset; // X coordinate offset
+    protected int yOffset; // Y coordinate offset
 
     @Override
     public Star createStar() {

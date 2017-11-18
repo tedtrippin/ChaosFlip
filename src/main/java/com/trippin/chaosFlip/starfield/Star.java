@@ -6,12 +6,19 @@ public class Star {
 
     private static final double[] cos = new double[361];
     private static final double[] sin = new double[361];
+//    private static Image starImage;
 
     static {
         for (int i = 0; i <= 360; i++) {
             cos[i] = Math.cos(Math.toRadians(i+180));
             sin[i] = Math.sin(Math.toRadians(i));
         }
+
+//        try {
+//            starImage = ImageIO.read(Star.class.getResourceAsStream("/elephant.png"));
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     private int step;
@@ -57,5 +64,6 @@ public class Star {
 
     public void draw(Graphics2D g) {
         g.drawRect(x, y, size, size);
+//        g.drawImage(starImage, x, y, null);
     }
 }

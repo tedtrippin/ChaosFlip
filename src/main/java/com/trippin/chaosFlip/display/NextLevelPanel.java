@@ -2,22 +2,20 @@ package com.trippin.chaosFlip.display;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.trippin.chaosFlip.Exception.CantLoadLevelException;
-import com.trippin.chaosFlip.starfield.CenterStarFactory;
-import com.trippin.chaosFlip.starfield.StarField;
+import com.trippin.chaosFlip.starfield.TopRightCornerStarFactory;
 
 public class NextLevelPanel
-    extends JPanel
+    extends ChaosPanel
     implements ActionListener {
 
     private static final long serialVersionUID = 1L;
@@ -28,35 +26,39 @@ public class NextLevelPanel
     private final int lastLevelNumber;
 
     private final JFrame parent;
+
     private final JButton nextButton;
-    private StarField starField;
+    private final JLabel nextLevelLabel;
 
     public NextLevelPanel(int lastLevelNumber, JFrame parent) {
+
+        super(new TopRightCornerStarFactory());
 
         this.lastLevelNumber = lastLevelNumber;
         this.parent = parent;
         setBackground(Color.BLACK);
         setForeground(Color.WHITE);
+        setLayout(null);
 
-        JLabel nextLevelLabel = new JLabel("Next level is " + (lastLevelNumber + 1));
+        nextLevelLabel = new JLabel("Next level is " + (lastLevelNumber + 1));
+        nextLevelLabel.setForeground(Color.WHITE);
+        nextLevelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nextLevelLabel.setSize(new Dimension(200, 50));
         add(nextLevelLabel);
 
-        nextButton = new JButton("Next");
+        nextButton = new MenuButton("NEXT", 37);
         nextButton.addActionListener(this);
         add(nextButton);
     }
 
     @Override
-    public void paint(Graphics g) {
+    protected void init() {
 
-        super.paint(g);
+        int width = (int) parent.getSize().getWidth();
+        int middle = width / 2;
 
-        if (starField == null) {
-            starField = new StarField(this, new CenterStarFactory(this));
-            starField.start();
-        }
-
-        starField.draw((Graphics2D) g);
+        nextLevelLabel.setLocation(middle - (nextLevelLabel.getWidth() / 2), 150);
+        nextButton.setLocation(middle - (MenuButton.WIDTH / 2), 200);
     }
 
     @Override

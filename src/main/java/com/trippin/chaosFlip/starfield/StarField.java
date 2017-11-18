@@ -27,6 +27,8 @@ public class StarField implements ActionListener {
 
     public void start() {
 
+        starFactory.init(container);
+
         width = container.getWidth();
         height = container.getHeight();
 

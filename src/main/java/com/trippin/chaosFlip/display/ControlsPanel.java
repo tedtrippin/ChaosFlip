@@ -44,6 +44,5 @@ public class ControlsPanel
         parentContainer.removeAll();
         parentContainer.add(mainMenu);
         parentContainer.validate();
-        mainMenu.start();
     }
 }

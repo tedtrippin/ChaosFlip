@@ -1,10 +1,23 @@
 package com.trippin.chaosFlip.starfield;
 
-import javax.swing.JComponent;
+import java.awt.Component;
 
+/**
+ * Creates a star factory where stars start at the middle
+ * of the parent and can travel in any direction.
+ *
+ * @author robert.haycock
+ *
+ */
 public class CenterStarFactory extends AbstractStarFactory {
 
-    public CenterStarFactory(JComponent parent) {
-        super(0, 360, 1, parent.getWidth()/2, 1, parent.getHeight()/2);
+    @Override
+    public void init(Component parent) {
+        startAngle = 0;
+        angleRange = 360;
+        xRange = 1;
+        yRange = 1;
+        xOffset = parent.getWidth() / 2;
+        yOffset = parent.getHeight() / 2;
     }
 }

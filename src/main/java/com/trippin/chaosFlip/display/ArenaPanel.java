@@ -11,18 +11,16 @@ import java.io.IOException;
 import java.util.Optional;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.trippin.chaosFlip.UserDataLoader;
 import com.trippin.chaosFlip.starfield.CenterStarFactory;
-import com.trippin.chaosFlip.starfield.StarField;
 import com.trippin.chasoFlip.model.Level;
 import com.trippin.chasoFlip.model.Tile;
 import com.trippin.chasoFlip.model.UserData;
 
 public class ArenaPanel
-    extends JPanel
+    extends ChaosPanel
     implements MouseListener {
 
     private static final long serialVersionUID = 1L;
@@ -36,11 +34,11 @@ public class ArenaPanel
     private double ratioX;
     private double ratioY;
     private Level level;
-    private StarField starField;
     private boolean levelComplete = false;
-    private boolean initialised = false;
 
     ArenaPanel (JFrame parent, Level level) {
+
+        super(new CenterStarFactory());
 
         this.parent = parent;
         this.level = level;
@@ -65,10 +63,6 @@ public class ArenaPanel
 
         Graphics2D g2D = (Graphics2D) g;
 
-        starField.draw(g2D);
-
-//        g.drawImage(background, 0, 0, null);
-
         level.getTiles().forEach(t -> paintTile(t, g2D));
 
         if (!levelComplete)
@@ -77,24 +71,17 @@ public class ArenaPanel
         g.drawString("LEVEL COMPLETE", 25,  50);
     }
 
-    private void init() {
+    @Override
+    protected void init() {
 
         if (getWidth() == 0)
             return;
-
-        if (initialised)
-            return;
-
-        starField = new StarField(this, new CenterStarFactory(this));
-        starField.start();
 
         ratioX = getWidth() / DEFAULT_WIDTH;
         ratioY = getHeight() / DEFAULT_HEIGHT;
 
         // Initialise tiles with the ratios
         level.getTiles().forEach(t -> t.initForArena(ratioX, ratioY));
-
-        initialised = true;
     }
 
     private void paintTile(Tile tile, Graphics2D g2D) {
@@ -113,6 +100,7 @@ public class ArenaPanel
     private void levelCompleted() {
 
         NextLevelPanel nextLevelPanel = new NextLevelPanel(level.getLevel(), parent);
+
         Container parentContainer = parent.getContentPane();
         parentContainer.removeAll();
         parentContainer.add(nextLevelPanel);
@@ -126,14 +114,6 @@ public class ArenaPanel
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    @Override
-    public void removeNotify() {
-
-        super.removeNotify();
-
-        starField.stop();
     }
 
     @Override
