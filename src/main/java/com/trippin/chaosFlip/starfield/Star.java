@@ -62,6 +62,10 @@ public class Star {
         y = ((int)(cos[direction] * step * speed)) + origY;
     }
 
+    void setStep(int i) {
+        step = i;
+    }
+
     public void draw(Graphics2D g) {
         g.drawRect(x, y, size, size);
 //        g.drawImage(starImage, x, y, null);

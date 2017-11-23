@@ -1,7 +1,6 @@
 package com.trippin.chaosFlip.display;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +12,6 @@ import javax.swing.SwingConstants;
 
 import com.trippin.chaosFlip.LevelLoader;
 import com.trippin.chaosFlip.UserDataLoader;
-import com.trippin.chaosFlip.Exception.CantLoadLevelException;
 import com.trippin.chaosFlip.starfield.RightStarFactory;
 
 public class MainMenu
@@ -21,8 +19,6 @@ public class MainMenu
     implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-
-    private final JFrame parent;
 
     // Menu components
     private final JButton startButton;
@@ -32,9 +28,8 @@ public class MainMenu
 
     public MainMenu(JFrame parent) {
 
-        super(new RightStarFactory());
+        super(parent, new RightStarFactory());
 
-        this.parent = parent;
         setBackground(Color.BLACK);
         setLayout(null);
 
@@ -95,25 +90,8 @@ public class MainMenu
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == startButton)
-            startGame();
+            goToLevel(levelSelector.getSelectedIndex() + 1);
         else if (e.getSource() == exitButton)
         	System.exit(0);
-    }
-
-    private void startGame() {
-
-        // Create the game panel
-        GamePanel gamePanel;
-        try {
-            int level = levelSelector.getSelectedIndex() + 1;
-
-            gamePanel = new GamePanel(parent, level);
-            Container parentContainer = parent.getContentPane();
-            parentContainer.removeAll();
-            parentContainer.add(gamePanel);
-            parentContainer.validate();
-        } catch (CantLoadLevelException ex) {
-            ex.printStackTrace();
-        }
     }
 }

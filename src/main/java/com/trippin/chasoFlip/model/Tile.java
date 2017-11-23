@@ -1,5 +1,6 @@
 package com.trippin.chasoFlip.model;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class Tile {
     private Image[] tileImages;
     private int tileIdx;
     private List<Tile> dependents;
+    private int flipStep;
+    private boolean flipping;
 
     // These are set when initiated, the fields are
     // multiplied by the arena ratios
@@ -58,9 +61,7 @@ public class Tile {
 
     public void flip() {
 
-        tileIdx++;
-        if (tileIdx >= tileImages.length)
-            tileIdx = 0;
+        flipping = true;
 
         // Flip the dependents
         dependents.forEach(Tile::flip);
@@ -104,5 +105,48 @@ public class Tile {
 
     public void setDependents(List<Tile> dependents) {
         this.dependents = dependents;
+    }
+
+    /**
+     * Increases the degree-of-flip. Returns true if the tile
+     * is still flipping.
+     *
+     * @return true if still flipping.
+     */
+    public boolean step() {
+
+        dependents.forEach(Tile::step);
+
+        if (flipping) {
+            flipStep++;
+
+            if (flipStep >= 10) {
+                flipping = false;
+
+                // Move to next tile
+                tileIdx++;
+                if (tileIdx >= tileImages.length)
+                    tileIdx = 0;
+            }
+
+        } else if (flipStep > 0) {
+            flipStep--;
+        }
+
+        return flipStep != 0;
+    }
+
+    public void paint(Graphics2D g) {
+
+        Image img = tileImages[tileIdx];
+        if (flipStep == 0) {
+            g.drawImage(img, arenaX, arenaY, arenaWidth, arenaHeight, null);
+
+        } else {
+            double delta = arenaHeight / 20d;
+            int yOffset = (int) (delta * flipStep);
+            int flipHeight = (int) (arenaHeight - (delta * 2 * flipStep));
+            g.drawImage(img, arenaX, arenaY + yOffset, arenaWidth, flipHeight, null);
+        }
     }
 }

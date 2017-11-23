@@ -15,7 +15,9 @@ public interface StarFactory {
     /**
      * Creates a star with a location/speed/direction.
      *
+     * @param if true, the star starts at the factories origin
+     *      else starts somewhere random.
      * @return
      */
-    Star createStar();
+    Star createStar(boolean origin);
 }

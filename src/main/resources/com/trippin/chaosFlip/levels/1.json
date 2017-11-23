@@ -6,8 +6,8 @@
     "x": 305,
     "y": 460,
     "width": 25,
-    "height": 25,
-    "tiles": ["red.png", "blue.png"],
+    "height": 40,
+    "tiles": ["1", "2"],
     "start": 0,
     "dependents": [2]
    },{
@@ -15,26 +15,26 @@
     "x": 335,
     "y": 460,
     "width": 25,
-    "height": 25,
-    "tiles": ["red.png", "blue.png"],
+    "height": 40,
+    "tiles": ["1", "2"],
     "start": 1,
     "dependents": []
    },{
     "id": 3,
     "x": 305,
-    "y": 500,
+    "y": 515,
     "width": 25,
-    "height": 25,
-    "tiles": ["red.png", "blue.png"],
+    "height": 40,
+    "tiles": ["1", "2"],
     "start": 1,
     "dependents": []
    },{
     "id": 4,
     "x": 335,
-    "y": 500,
+    "y": 515,
     "width": 25,
-    "height": 25,
-    "tiles": ["red.png", "blue.png"],
+    "height": 40,
+    "tiles": ["1", "2"],
     "start": 0,
     "dependents": []
    }

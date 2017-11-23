@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -13,7 +14,9 @@ import java.util.Optional;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import com.trippin.chaosFlip.LevelLoader;
 import com.trippin.chaosFlip.UserDataLoader;
+import com.trippin.chaosFlip.Exception.CantLoadLevelException;
 import com.trippin.chaosFlip.starfield.CenterStarFactory;
 import com.trippin.chasoFlip.model.Level;
 import com.trippin.chasoFlip.model.Tile;
@@ -21,7 +24,7 @@ import com.trippin.chasoFlip.model.UserData;
 
 public class ArenaPanel
     extends ChaosPanel
-    implements MouseListener {
+    implements ActionListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,24 +37,27 @@ public class ArenaPanel
     private double ratioX;
     private double ratioY;
     private Level level;
+    private boolean busy = false;
     private boolean levelComplete = false;
+    private MenuButton menuButton;
+    private Timer flipTimer;
 
-    ArenaPanel (JFrame parent, Level level) {
+    ArenaPanel (JFrame parent, int levelNumber)
+        throws CantLoadLevelException {
 
-        super(new CenterStarFactory());
+        super(parent, new CenterStarFactory());
 
         this.parent = parent;
-        this.level = level;
         this.addMouseListener(this);
+        this.setLayout(null);
         setBackground(Color.BLACK);
 
-//        URL backgroundUrl = ArenaMask.class.getClassLoader().getResource("background.jpg");
-//        try {
-//            background = ImageIO.read(backgroundUrl);
-//            background = background.getScaledInstance(engine.getArenaWidth(), engine.getArenaHeight(), 0);
-//        } catch (IOException ex) {
-//            ex.printStackTrace(System.err);
-//        }
+        LevelLoader levelLoader = new LevelLoader();
+        this.level = levelLoader.loadLevel(levelNumber);
+
+        menuButton = new MenuButton("MENU", 37);
+        menuButton.addActionListener(this);
+        add(menuButton);
     }
 
     @Override
@@ -63,12 +69,13 @@ public class ArenaPanel
 
         Graphics2D g2D = (Graphics2D) g;
 
-        level.getTiles().forEach(t -> paintTile(t, g2D));
+        level.getTiles().forEach(t -> t.paint(g2D));
 
         if (!levelComplete)
             return;
 
-        g.drawString("LEVEL COMPLETE", 25,  50);
+        int x = (parent.getWidth() / 2) - 65;
+        g.drawString("LEVEL COMPLETE", x,  50);
     }
 
     @Override
@@ -80,21 +87,10 @@ public class ArenaPanel
         ratioX = getWidth() / DEFAULT_WIDTH;
         ratioY = getHeight() / DEFAULT_HEIGHT;
 
+        menuButton.setLocation(10, 10);
+
         // Initialise tiles with the ratios
         level.getTiles().forEach(t -> t.initForArena(ratioX, ratioY));
-    }
-
-    private void paintTile(Tile tile, Graphics2D g2D) {
-
-        int i = tile.getTileIdx();
-        Image img = tile.getTileImages()[i];
-        g2D.drawImage(
-            img,
-            tile.getX(),
-            tile.getY(),
-            tile.getWidth(),
-            tile.getHeight(),
-            null);
     }
 
     private void levelCompleted() {
@@ -119,6 +115,9 @@ public class ArenaPanel
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        if (busy)
+            return;
+
         if (levelComplete)
             return;
 
@@ -129,25 +128,14 @@ public class ArenaPanel
         if (!tileOptional.isPresent())
             return;
 
-        tileOptional.get().flip();
+        Tile tile = tileOptional.get();
+        tile.flip();
 
-        // Check complete
-        levelComplete = true;
-        int tileIdx = level.getTiles().get(0).getTileIdx();
-        for (Tile tile : level.getTiles()) {
-            if (tileIdx != tile.getTileIdx()) {
-                levelComplete = false;
-                break;
-            }
-        }
+        busy = true;
 
-        if (levelComplete) {
-            Timer endLevelTimer = new Timer(2000, (a) -> levelCompleted());
-            endLevelTimer.setRepeats(false);
-            endLevelTimer.start();
-        }
-
-        super.repaint();
+        flipTimer = new Timer(15, new FlipListener(tile));
+        flipTimer.setRepeats(true);
+        flipTimer.start();
     }
 
     @Override
@@ -164,5 +152,47 @@ public class ArenaPanel
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == menuButton)
+            goToMenu();
+    }
+
+    class FlipListener implements ActionListener {
+
+        private Tile tile;
+
+        FlipListener(Tile tile) {
+            this.tile = tile;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            if (tile.step())
+                return;
+
+            flipTimer.stop();
+            busy = false;
+
+            // Check complete
+            levelComplete = true;
+            int tileIdx = level.getTiles().get(0).getTileIdx();
+            for (Tile tile : level.getTiles()) {
+                if (tileIdx != tile.getTileIdx()) {
+                    levelComplete = false;
+                    break;
+                }
+            }
+
+            if (levelComplete) {
+                Timer endLevelTimer = new Timer(2000, (a) -> levelCompleted());
+                endLevelTimer.setRepeats(false);
+                endLevelTimer.start();
+            }
+        }
     }
 }

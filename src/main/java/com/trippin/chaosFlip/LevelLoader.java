@@ -123,7 +123,7 @@ public class LevelLoader {
             if (tileMap.containsKey(s)) {
                 images[idx++] = tileMap.get(s);
             } else {
-                try (InputStream in = this.getClass().getResourceAsStream("tiles/" + s)) {
+                try (InputStream in = this.getClass().getResourceAsStream("tiles/" + s + ".png")) {
                     Image i = ImageIO.read(in);
                     tileMap.put(s, i);
                     images[idx++] = i;

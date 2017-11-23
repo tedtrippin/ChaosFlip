@@ -17,18 +17,25 @@ abstract class AbstractStarFactory implements StarFactory {
     protected int yOffset; // Y coordinate offset
 
     @Override
-    public Star createStar() {
+    public Star createStar(boolean origin) {
 
-        int direction = (int)(Math.random() * angleRange) + startAngle;
         int x = (int)(Math.random() * xRange) + xOffset;
         int y = (int)(Math.random() * yRange) + yOffset;
+        int direction = (int)(Math.random() * angleRange) + startAngle;
         int size = (int)(Math.random() * 40) / 10;
         if (size < 1)
             size = 1;
         else if (size > 3)
             size = 3;
         double speed = Math.random();
+        if (speed < 0.25)
+            speed = 0.25;
 
-        return new Star(direction, speed, size, x, y);
+        Star star = new Star(direction, speed, size, x, y);
+
+        if (!origin)
+            star.setStep((int)(Math.random() * 400));
+
+        return star;
     }
 }

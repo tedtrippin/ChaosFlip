@@ -13,7 +13,6 @@ public class StarField implements ActionListener {
     private final static int STAR_FIELD_DELAY_MS = 10;
 
     private final Star[] stars = new Star[30];
-    private int count = 0;
     private Timer starFieldTimer;
     private JComponent container;
     private StarFactory starFactory;
@@ -28,6 +27,10 @@ public class StarField implements ActionListener {
     public void start() {
 
         starFactory.init(container);
+
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = starFactory.createStar(false);
+        }
 
         width = container.getWidth();
         height = container.getHeight();
@@ -60,13 +63,6 @@ public class StarField implements ActionListener {
 
         g.setColor(Color.WHITE);
 
-        // Randomly add a star if we don't have enough
-        if (count < stars.length) {
-            if (Math.random() > 0.9) {
-                stars[count++] = starFactory.createStar();
-            }
-        }
-
         for (int x = 0; x < stars.length; x++) {
 
             Star star = stars[x];
@@ -74,7 +70,7 @@ public class StarField implements ActionListener {
                 continue;
 
             if (isOutOfBounds(star))
-                stars[x] = starFactory.createStar();
+                stars[x] = starFactory.createStar(true);
             else
                 star.draw(g);
         }

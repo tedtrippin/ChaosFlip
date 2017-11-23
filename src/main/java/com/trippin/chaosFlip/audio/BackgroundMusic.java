@@ -12,7 +12,6 @@ public class BackgroundMusic {
         instance = new BackgroundMusic();
     }
 
-//    private final Thread backgroundMusicThread;
     private Clip clip;
 
     public static BackgroundMusic instance() {
