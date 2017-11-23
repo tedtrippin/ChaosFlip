@@ -55,7 +55,7 @@ public class ArenaPanel
         LevelLoader levelLoader = new LevelLoader();
         this.level = levelLoader.loadLevel(levelNumber);
 
-        menuButton = new MenuButton("MENU", 37);
+        menuButton = new MenuButton("MENU", 34);
         menuButton.addActionListener(this);
         add(menuButton);
     }
@@ -130,6 +130,7 @@ public class ArenaPanel
 
         Tile tile = tileOptional.get();
         tile.flip();
+        tile.getDependents().forEach(Tile::flip);
 
         busy = true;
 

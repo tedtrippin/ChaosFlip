@@ -1,0 +1,33 @@
+{
+ "level": 3,
+ "tiles": [
+   {
+    "id": 11,
+    "x": 280,
+    "y": 470,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 0,
+    "dependents": [12,13]
+   },{
+    "id": 12,
+    "x": 320,
+    "y": 470,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1","2","3"],
+    "start": 1,
+    "dependents": [13]
+   },{
+    "id": 13,
+    "x": 360,
+    "y": 470,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1","2","3"],
+    "start": 1,
+    "dependents": []
+  }
+ ]
+}

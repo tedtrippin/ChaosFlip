@@ -60,11 +60,7 @@ public class Tile {
     }
 
     public void flip() {
-
         flipping = true;
-
-        // Flip the dependents
-        dependents.forEach(Tile::flip);
     }
 
     public int getId() {

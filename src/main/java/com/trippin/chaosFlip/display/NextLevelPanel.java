@@ -49,7 +49,7 @@ public class NextLevelPanel
         nextButton.addActionListener(this);
         add(nextButton);
 
-        menuButton = new MenuButton("MENU", 37);
+        menuButton = new MenuButton("MENU", 34);
         menuButton.addActionListener(this);
         add(menuButton);
     }
