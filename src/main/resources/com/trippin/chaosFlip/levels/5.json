@@ -1,0 +1,123 @@
+{
+ "level": 5,
+ "tiles": [
+   {
+    "id": 11,
+    "x": 260,
+    "y": 400,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 0,
+    "dependents": [12,13,22]
+   },{
+    "id": 12,
+    "x": 300,
+    "y": 400,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 13,
+    "x": 340,
+    "y": 400,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 14,
+    "x": 380,
+    "y": 400,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 0,
+    "dependents": [24,34]
+   },{
+    "id": 21,
+    "x": 260,
+    "y": 455,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 22,
+    "x": 320,
+    "y": 482,
+    "width": 65,
+    "height": 95,
+    "tiles": ["1", "2","3"],
+    "start": 2,
+    "dependents": []
+   },{
+    "id": 24,
+    "x": 380,
+    "y": 455,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 31,
+    "x": 260,
+    "y": 510,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 34,
+    "x": 380,
+    "y": 510,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+     "id": 41,
+    "x": 260,
+    "y": 565,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 0,
+    "dependents": [21,31,22]
+   },{
+    "id": 42,
+    "x": 300,
+    "y": 565,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 43,
+    "x": 340,
+    "y": 565,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 1,
+    "dependents": []
+   },{
+    "id": 44,
+    "x": 380,
+    "y": 565,
+    "width": 25,
+    "height": 40,
+    "tiles": ["1", "2"],
+    "start": 0,
+    "dependents": [42,43]
+  }
+ ]
+}

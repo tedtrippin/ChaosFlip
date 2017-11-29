@@ -23,6 +23,7 @@ public class MainMenu
     // Menu components
     private final JButton startButton;
     private final JButton exitButton;
+    private final JButton musicButton;
     private final JLabel selectLevelLabel;
     private final JComboBox<Integer> levelSelector;
 
@@ -62,6 +63,7 @@ public class MainMenu
             levelList[i] = ++i;
         } while (i < level);
         levelSelector = new JComboBox<>(levelList);
+        levelSelector.setMaximumRowCount(5);
         levelSelector.setSelectedIndex(levelList.length - 1); // Select the highest level
         levelSelector.setSize(MenuButton.WIDTH, 25);
         add(levelSelector);
@@ -70,18 +72,24 @@ public class MainMenu
         exitButton = new MenuButton("EXIT", 39);
         exitButton.addActionListener(this);
         add(exitButton);
+
+        // Add music toggle button
+        musicButton = new MusicButton();
+        musicButton.addActionListener(this);
+        add(musicButton);
     }
 
     @Override
     protected void init() {
 
-        int width = (int) parent.getSize().getWidth();
+        int width = getWidth();
         int middle = width / 2;
 
         int buttonX = middle - (MenuButton.WIDTH / 2);
         startButton.setLocation(buttonX, 200);
         levelSelector.setLocation(buttonX, 310);
         exitButton.setLocation(buttonX, 500);
+        musicButton.setLocation(getWidth() - 60, 10);
 
         selectLevelLabel.setLocation(middle - (selectLevelLabel.getWidth() / 2), 280);
     }

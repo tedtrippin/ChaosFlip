@@ -38,5 +38,10 @@ public class BackgroundMusic {
 
         clip.stop();
         clip.close();
+        clip = null;
+    }
+
+    public synchronized boolean isPlaying() {
+        return clip != null;
     }
 }

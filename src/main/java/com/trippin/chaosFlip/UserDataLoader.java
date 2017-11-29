@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 
 import com.google.gson.Gson;
-import com.trippin.chasoFlip.model.UserData;
+import com.trippin.chaosFlip.model.UserData;
 
 public class UserDataLoader {
 

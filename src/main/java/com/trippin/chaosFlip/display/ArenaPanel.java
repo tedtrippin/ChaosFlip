@@ -11,16 +11,17 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import com.trippin.chaosFlip.LevelLoader;
 import com.trippin.chaosFlip.UserDataLoader;
 import com.trippin.chaosFlip.Exception.CantLoadLevelException;
+import com.trippin.chaosFlip.model.Level;
+import com.trippin.chaosFlip.model.Tile;
+import com.trippin.chaosFlip.model.UserData;
 import com.trippin.chaosFlip.starfield.CenterStarFactory;
-import com.trippin.chasoFlip.model.Level;
-import com.trippin.chasoFlip.model.Tile;
-import com.trippin.chasoFlip.model.UserData;
 
 public class ArenaPanel
     extends ChaosPanel
@@ -39,7 +40,8 @@ public class ArenaPanel
     private Level level;
     private boolean busy = false;
     private boolean levelComplete = false;
-    private MenuButton menuButton;
+    private final MenuButton menuButton;
+    private final JButton musicButton;
     private Timer flipTimer;
 
     ArenaPanel (JFrame parent, int levelNumber)
@@ -58,6 +60,11 @@ public class ArenaPanel
         menuButton = new MenuButton("MENU", 34);
         menuButton.addActionListener(this);
         add(menuButton);
+
+        // Add music toggle button
+        musicButton = new MusicButton();
+        musicButton.addActionListener(this);
+        add(musicButton);
     }
 
     @Override
@@ -88,6 +95,7 @@ public class ArenaPanel
         ratioY = getHeight() / DEFAULT_HEIGHT;
 
         menuButton.setLocation(10, 10);
+        musicButton.setLocation(getWidth() - 60, 10);
 
         // Initialise tiles with the ratios
         level.getTiles().forEach(t -> t.initForArena(ratioX, ratioY));

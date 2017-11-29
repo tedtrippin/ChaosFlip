@@ -1,4 +1,4 @@
-package com.trippin.chasoFlip.model;
+package com.trippin.chaosFlip.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.trippin.chasoFlip.model;
+package com.trippin.chaosFlip.model;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -136,9 +136,11 @@ public class Tile {
 
         Image img = tileImages[tileIdx];
         if (flipStep == 0) {
+            // Draw the tile
             g.drawImage(img, arenaX, arenaY, arenaWidth, arenaHeight, null);
 
         } else {
+            // Draw the flipping tile
             double delta = arenaHeight / 20d;
             int yOffset = (int) (delta * flipStep);
             int flipHeight = (int) (arenaHeight - (delta * 2 * flipStep));

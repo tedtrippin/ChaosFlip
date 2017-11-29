@@ -17,8 +17,8 @@ import com.google.gson.Gson;
 import com.trippin.chaosFlip.Exception.CantLoadLevelException;
 import com.trippin.chaosFlip.json.LevelPojo;
 import com.trippin.chaosFlip.json.TilePojo;
-import com.trippin.chasoFlip.model.Level;
-import com.trippin.chasoFlip.model.Tile;
+import com.trippin.chaosFlip.model.Level;
+import com.trippin.chaosFlip.model.Tile;
 
 public class LevelLoader {
 

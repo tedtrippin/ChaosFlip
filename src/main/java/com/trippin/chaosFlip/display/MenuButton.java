@@ -15,12 +15,18 @@ public class MenuButton extends JButton implements MouseListener {
 
     public final static int WIDTH = 100;
     public final static int HEIGHT = 50;
-    private final static int ARC_RADIUS = 20;
-    private final int textOffset;
-    private final String text;
-    private boolean mouseIn = false;
+    public final static int ARC_RADIUS = 20;
+
+    private int textOffset;
+    private String text;
+    protected boolean mouseIn = false;
+
+    MenuButton() {
+        super();
+    }
 
     MenuButton(String text, int textOffset) {
+        super();
         this.text = text;
         this.textOffset = textOffset;
         setSize(WIDTH, HEIGHT);
