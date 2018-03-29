@@ -42,15 +42,15 @@ public class MusicButton extends MenuButton {
         if (mouseIn) {
             g2d.fillRoundRect(1, 1, HEIGHT-6, HEIGHT-6, ARC_RADIUS, ARC_RADIUS);
             if (BackgroundMusic.instance().isPlaying())
-                g.drawImage(imgOffHover, 8, 8, null);
-            else
                 g.drawImage(imgOnHover, 8, 8, null);
+            else
+                g.drawImage(imgOffHover, 8, 8, null);
         } else {
             g2d.drawRoundRect(1, 1, HEIGHT-6, HEIGHT-6, ARC_RADIUS, ARC_RADIUS);
             if (BackgroundMusic.instance().isPlaying())
-                g.drawImage(imgOff, 8, 8, null);
-            else
                 g.drawImage(imgOn, 8, 8, null);
+            else
+                g.drawImage(imgOff, 8, 8, null);
         }
     }
 
